@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление елей</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+
+        // Функция для рисования ели
+        function drawTree(x, y) {
+            // Случайная высота дерева
+            const treeHeight = Math.floor(Math.random() * 50) + 20; // от 20 до 70
+            const trunkHeight = treeHeight + 20;
+
+            // Случайный цвет дерева
+            const colors = ["green", "darkgreen", "forestgreen"];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            // Рисуем верхушку ели
+            context.fillStyle = color;
+            context.beginPath();
+            context.moveTo(x, y - treeHeight); // Вершина
+            context.lineTo(x - 20, y); // Левая сторона
+            context.lineTo(x + 20, y); // Правая сторона
+            context.closePath();
+            context.fill();
+
+            // Рисуем ствол ели
+            context.fillStyle = "brown";
+            context.fillRect(x - 5, y, 10, 20);
+        }
+
+        // Добавляем обработчик клика
+        canvas.addEventListener('click', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            drawTree(x, y);
+        });
+    </script>
+</body>
+</html>
